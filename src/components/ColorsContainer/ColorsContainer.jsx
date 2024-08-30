@@ -125,7 +125,6 @@ export default function ColorsContainer() {
           }, 1000);
     }
     const eliminarColor = (index)=>{
-        alert("elemento"+index+" eliminado")
         const nuevoBgColor = [...bgColor];
     nuevoBgColor.splice(index, 1);
 
