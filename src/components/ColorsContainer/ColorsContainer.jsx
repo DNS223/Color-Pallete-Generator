@@ -124,10 +124,19 @@ export default function ColorsContainer() {
             setMostrarAlert(false)
           }, 1000);
     }
+    const eliminarColor = (index)=>{
+        alert("elemento"+index+" eliminado")
+        const nuevoBgColor = [...bgColor];
+    nuevoBgColor.splice(index, 1);
+
+    setBgColor(nuevoBgColor);
+    }
+
     return (
         <div className={styles.ColorsContainer} id="contenedorColors">
             {bgColor.map((color, index) => {
-                return(<ColorBar key={index} bgColor={color} textColor={isDark(color) ? '#FFFFFF' : '#2b2b2b   '} name={colorNames[index]} setAlert={MostrarAlert}/>)
+                return(<ColorBar key={index} index={index} bgColor={color} textColor={isDark(color) ? '#FFFFFF' : '#2b2b2b   '} name={colorNames[index]} setAlert={MostrarAlert}
+                eliminar={()=>eliminarColor(index)} cantidad={bgColor.length}/>)
                 
             })}
             <div className={styles.alertContainer}>
