@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 import ColorBar from "../ColorBar/ColorBar";
 import styles from "./ColorsContainer.module.css";
+import Alert from "../alert/Alert";
 
 export default function ColorsContainer() {
     const [bgColor, setBgColor] = useState([]);
     const [colorNames, setColorNames] = useState([]);
+    const [mostrarAlert, setMostrarAlert] =  useState(false)
     useEffect(() => {
         const baseColor = generateRandomBaseColor();
         const palette = generateAnalogousPaletteHex(baseColor);
@@ -116,12 +118,22 @@ export default function ColorsContainer() {
         return luminance < 0.7;
     }
     console.log(colorNames ? colorNames[0] : "")
+    const MostrarAlert=(valor)=>{
+        setMostrarAlert(valor)
+        setTimeout(() => {
+            setMostrarAlert(false)
+          }, 1000);
+    }
     return (
         <div className={styles.ColorsContainer} id="contenedorColors">
             {bgColor.map((color, index) => {
-                return(<ColorBar key={index} bgColor={color} textColor={isDark(color) ? '#FFFFFF' : '#2b2b2b   '} name={colorNames[index]}/>)
+                return(<ColorBar key={index} bgColor={color} textColor={isDark(color) ? '#FFFFFF' : '#2b2b2b   '} name={colorNames[index]} setAlert={MostrarAlert}/>)
                 
             })}
+            <div className={styles.alertContainer}>
+            {mostrarAlert && <Alert/>}
+            </div>
+            
         </div>
     );
 }

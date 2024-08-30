@@ -6,3 +6,13 @@
     display: flex;
     color: #2b2b2b;
 }
+.alertContainer{
+    width: 100%;
+    height: 20%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    bottom: 0;
+
+}

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styles from "./ColorBar.module.css"
 import Opcion from "../opcion/Opcion";
-export default function ColorBar({bgColor, textColor, name}){
+export default function ColorBar({bgColor, textColor, name, setAlert}){
     const [visibleOpciones, setVisibleOpciones] = useState(false)
     console.log(name)
     return(
         <div className={styles.ColorBar} style={{backgroundColor:bgColor}} onMouseOver={()=>setVisibleOpciones(true)} onMouseLeave={()=>setVisibleOpciones(false)}>
             {visibleOpciones && <div className={styles.opcionesBar}>
-            <Opcion textColor={textColor} color={bgColor}/>   
+            <Opcion textColor={textColor} color={bgColor} setAlert={setAlert}/>   
             </div>}
             
             <h1 style={{marginBottom:"20px", color:textColor}}>{bgColor}</h1>
