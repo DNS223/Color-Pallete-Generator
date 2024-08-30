@@ -1,0 +1,8 @@
+.ColorsContainer{
+    width: 100vw;
+    height: 83vh;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    color: #2b2b2b;
+}
