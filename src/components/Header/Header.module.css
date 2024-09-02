@@ -1,0 +1,15 @@
+.header{
+    width: 100vw;
+    height: calc(100vh - 88vh);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.btnCamera{
+    margin-right: 20px;
+    & svg{
+        font-size: 40px;
+        color: rgb(58, 58, 58);
+    }
+}

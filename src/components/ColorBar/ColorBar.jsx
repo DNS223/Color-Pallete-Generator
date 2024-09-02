@@ -4,7 +4,7 @@ import Opcion from "../opcion/Opcion";
 export default function ColorBar({bgColor, textColor, name, setAlert, eliminar, cantidad, index, color1, color2, arrayColores, setArrayColores, setNombre}){
     const [visibleOpciones, setVisibleOpciones] = useState(false)
     const [btnNewColorVisible, setBtnNewColorVisible] = useState(false)
-    console.log(color1 + " " + color2)
+    // Generar color intermedio
     function blendColors(color1, color2, factor = 0.5) {
       // Convertir colores hexadecimales a RGB
       const rgb1 = hexToRgb(color1);
@@ -46,10 +46,7 @@ export default function ColorBar({bgColor, textColor, name, setAlert, eliminar, 
         return hex;
       }
 
-      // const createNewColor= () =>{
-      //   setArrayColores(arrayColores.splice(index, 0 ,blendColors(color1, color2)))
-      //   console.log(arrayColores)
-      // }
+    
 
       const createNewColor = (index)=>{
         const updatedBgColor = [...arrayColores]; // Crea una copia del array
@@ -59,8 +56,7 @@ export default function ColorBar({bgColor, textColor, name, setAlert, eliminar, 
     }
     return(
       <div style={{ display: "flex" }}>
-      <div
-          className={styles.ColorBar}
+      <div className={styles.ColorBar}
           style={{
               backgroundColor: bgColor,
               width: `calc(100vw / ${cantidad})`,

@@ -4,10 +4,12 @@ import ColorBar from "../ColorBar/ColorBar";
 import styles from "./ColorsContainer.module.css";
 import Alert from "../alert/Alert";
 
-export default function ColorsContainer() {
+export default function ColorsContainer({imgColors}) {
     const [bgColor, setBgColor] = useState([]);
     const [colorNames, setColorNames] = useState([]);
     const [mostrarAlert, setMostrarAlert] =  useState(false)
+
+    // Al cargar se genera un color aleatorio para generar una paleta
     useEffect(() => {
         const baseColor = generateRandomBaseColor();
         const palette = generateAnalogousPaletteHex(baseColor);
@@ -17,6 +19,7 @@ export default function ColorsContainer() {
         fetchColorNames(palette);
     }, []);
 
+    // genera el color aleatoreo 
     function generateRandomBaseColor() {
         let color = '#';
         
@@ -27,7 +30,9 @@ export default function ColorsContainer() {
         return color;
     }
 
+    // Se genera una paleta a partir del color aleatoreo
     function generateAnalogousPaletteHex(baseColor, steps = 5) {
+        // Se convierte a Hsl para poder trabajar mejor los cambios de color
         const hsl = hexToHsl(baseColor);
         const colors = [];
         const hueStep = 30; // Aumento para variación de tonalidades
@@ -38,7 +43,7 @@ export default function ColorsContainer() {
             let newHue = (hsl.h + hueStep * i) % 360;
             let newSaturation = Math.max(0, Math.min(100, hsl.s + (saturationStep * (i - Math.floor(steps / 2)))));
             let newLightness = Math.max(0, Math.min(100, hsl.l + (lightnessStep * (i - Math.floor(steps / 2)))));
-
+            // Se regresa a hexadecimal, es mas cómodo
             const newColor = hslToHex(newHue, newSaturation, newLightness);
             colors.push(newColor);
 
@@ -46,18 +51,8 @@ export default function ColorsContainer() {
         }
         return colors;
     }
-    function fetchColorNames(palette) {
-        console.log(palette)
-        Promise.all(
-            palette.map(color =>
-                fetch(`https://www.thecolorapi.com/id?hex=${color.replace('#', '')}`)
-                    .then(response => response.json())
-                    .then(data => data.name.value)
-            )
-        )
-        .then(names => setColorNames(names))
-        .catch(error => console.error('Error fetching color names:', error));
-    }
+
+
 
     // Convertir hexadecimal a HSL
     function hexToHsl(hex) {
@@ -131,8 +126,27 @@ export default function ColorsContainer() {
 
     setBgColor(nuevoBgColor);
     }
-    
-console.log(bgColor)
+    // Establece los nombres de los colores mediante un api
+    function fetchColorNames(palette) {
+        Promise.all(
+            palette.map(color =>
+                fetch(`https://www.thecolorapi.com/id?hex=${color.replace('#', '')}`)
+                    .then(response => response.json())
+                    .then(data => data.name.value)
+            )
+        )
+        .then(names => setColorNames(names))
+        .catch(error => console.error('Error fetching color names:', error));
+    }
+
+
+    // Cada momento que cambia la imagen, llegan a este componente y reemplaza los generados aleatoreamente
+useEffect(()=>{
+    if(imgColors){
+        setBgColor(imgColors)
+        fetchColorNames(imgColors)
+    }
+},[imgColors])
     return (
         <div className={styles.ColorsContainer} id="contenedorColors">
             {bgColor.map((color, index) => {
