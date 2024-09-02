@@ -47,6 +47,7 @@ export default function ColorsContainer() {
         return colors;
     }
     function fetchColorNames(palette) {
+        console.log(palette)
         Promise.all(
             palette.map(color =>
                 fetch(`https://www.thecolorapi.com/id?hex=${color.replace('#', '')}`)
@@ -130,12 +131,16 @@ export default function ColorsContainer() {
 
     setBgColor(nuevoBgColor);
     }
-
+    
+console.log(bgColor)
     return (
         <div className={styles.ColorsContainer} id="contenedorColors">
             {bgColor.map((color, index) => {
-                return(<ColorBar key={index} index={index} bgColor={color} textColor={isDark(color) ? '#FFFFFF' : '#2b2b2b   '} name={colorNames[index]} setAlert={MostrarAlert}
-                eliminar={()=>eliminarColor(index)} cantidad={bgColor.length}/>)
+                return(
+                <ColorBar key={index} index={index} bgColor={color} textColor={isDark(color) ? '#FFFFFF' : '#2b2b2b   '} name={colorNames[index]} setAlert={MostrarAlert}
+                eliminar={()=>eliminarColor(index)} cantidad={bgColor.length} color1={bgColor[index]} color2={bgColor[index+1]} arrayColores={bgColor} setArrayColores={setBgColor}
+                setNombre={fetchColorNames}/>
+            )
                 
             })}
             <div className={styles.alertContainer}>
