@@ -17,6 +17,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    position: relative;
     & p{
        margin-bottom: 16px;
         width: 100%;
@@ -41,4 +42,21 @@
             outline: none;
         }
     }
+}
+.btnContainer{
+    position: absolute;
+    bottom:15px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.btnOk{
+   width: 100px;
+   padding: 3px;
+   background-color: #0066FF;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   font-size: 15px;
 }

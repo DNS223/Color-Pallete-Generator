@@ -13,8 +13,12 @@ export default function Home() {
 
   const [modalImgVisible, setModalImgVisible] = useState(false)
   const [modalLinkVisible, setModalLinkVisible] = useState(false)
+  const [imgError, setImgError] =  useState()
+  const [cantidadColores, setCantidadColores] =  useState(5)
+  const [newColor, setNewColor] =  useState()
 // Cuando se cambie la imagen se genera una nueva paleta
   useEffect(() => {
+  
     if(imageSrc){
       const getPalette = async () => {
         try {
@@ -24,13 +28,14 @@ export default function Home() {
             
             image.onload = () => {
               const colorThief = new ColorThief();
-              const palette = colorThief.getPalette(image, 5);
+              const palette = colorThief.getPalette(image, parseInt(cantidadColores) );
               setPaleta(palette);
             };
            
      
             image.onerror = (err) => {
               console.error('Image loading error:', err);
+              setImgError("El link no soporta la petición. Por favor seleccione otro o seleccione el archivo.")
             };
          
         } catch (err) {
@@ -40,8 +45,8 @@ export default function Home() {
       getPalette();
     }
     
-  }, [imageSrc]);
-
+  }, [imageSrc, cantidadColores]);
+console.log(cantidadColores)
   // Obtiene el archivo y genera una url
   const handleFileChange = (e, input) => {
     
@@ -81,15 +86,15 @@ export default function Home() {
     }
   },[paleta])
 
-  
-  
+  console.log(newColor)
+
   return (
-    <div>
-      <Header handleFileChange={handleFileChange} setImageSrc={setImageSrc} setModalImgVisible={setModalImgVisible} setModalLinkVisible={setModalLinkVisible}/>
+    <div >
+      <Header handleFileChange={handleFileChange} setImageSrc={setImageSrc} setModalImgVisible={setModalImgVisible} setModalLinkVisible={setModalLinkVisible} setNewColor={setNewColor}/>
       {/* <input type="file" onChange={handleFileChange}/> */}
-      <ColorsContainer imgColors={colors}/>
+      <ColorsContainer imgColors={colors} newColor={newColor}/>
       {modalImgVisible && <ModalImg setModalImgVisible={setModalImgVisible} handleFileChange={handleFileChange}/>}
-      {modalLinkVisible && <LinkModal setModalLinkVisible={setModalLinkVisible} setImageSrc={setImageSrc}/>}
+      {modalLinkVisible && <LinkModal setModalLinkVisible={setModalLinkVisible} setImageSrc={setImageSrc} mjsError={imgError} setImgError={setImgError} setCantidadColores={setCantidadColores}/>}
     </div>
   );
 }

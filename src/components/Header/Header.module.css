@@ -21,6 +21,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    margin-bottom: 5px;
     & svg{
         font-size: 30px;
         color: rgb(73, 73, 73);

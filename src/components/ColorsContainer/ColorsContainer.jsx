@@ -4,20 +4,54 @@ import ColorBar from "../ColorBar/ColorBar";
 import styles from "./ColorsContainer.module.css";
 import Alert from "../alert/Alert";
 
-export default function ColorsContainer({imgColors}) {
+export default function ColorsContainer({imgColors, newColor}) {
     const [bgColor, setBgColor] = useState([]);
     const [colorNames, setColorNames] = useState([]);
     const [mostrarAlert, setMostrarAlert] =  useState(false)
 
     // Al cargar se genera un color aleatorio para generar una paleta
     useEffect(() => {
+        if(newColor){
+        const baseColor = newColor;
+        const palette = generateAnalogousPaletteHex(baseColor);
+        setBgColor(palette);
+        // Obtener los nombres de los colores para la paleta generada
+        fetchColorNames(palette);
+        }
         const baseColor = generateRandomBaseColor();
         const palette = generateAnalogousPaletteHex(baseColor);
         setBgColor(palette);
         
         // Obtener los nombres de los colores para la paleta generada
         fetchColorNames(palette);
+
+        const handleKeyDown = (event) => {
+            if (event.key === ' ') {  // Verifica si la tecla es 'Espacio'
+                console.log("cambio")
+                const baseColor = generateRandomBaseColor();
+                const palette = generateAnalogousPaletteHex(baseColor);
+                setBgColor(palette);
+                fetchColorNames(palette);
+              // Aquí puedes llamar a la función que desees
+            }
+          };
+        document.addEventListener('keydown', handleKeyDown);
+
+        // Elimina el listener cuando el componente se desmonte
+        return () => {
+          document.removeEventListener('keydown', handleKeyDown);
+        };
     }, []);
+    useEffect(()=>{
+        if(newColor){
+            const baseColor = newColor;
+            const palette = generateAnalogousPaletteHex(baseColor);
+            setBgColor(palette);
+            // Obtener los nombres de los colores para la paleta generada
+            fetchColorNames(palette);
+        }
+        
+    },[newColor])
 
     // genera el color aleatoreo 
     function generateRandomBaseColor() {
@@ -31,10 +65,10 @@ export default function ColorsContainer({imgColors}) {
     }
 
     // Se genera una paleta a partir del color aleatoreo
-    function generateAnalogousPaletteHex(baseColor, steps = 5) {
+    function generateAnalogousPaletteHex(baseColor, steps = 4) {
         // Se convierte a Hsl para poder trabajar mejor los cambios de color
         const hsl = hexToHsl(baseColor);
-        const colors = [];
+        const colors = [baseColor];
         const hueStep = 30; // Aumento para variación de tonalidades
         const saturationStep = 20; // Variar saturación
         const lightnessStep = 10; // Variar luminosidad
