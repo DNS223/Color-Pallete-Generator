@@ -21,12 +21,13 @@ export default function ModalImg({setModalImgVisible, handleFileChange}){
       }
     return(
         <div className={styles.modalImgContainer} onClick={()=>setModalImgVisible(false)}>
+
             <div className={!dropOver ? styles.ModalImg : styles.ModalImgOver} onClick={selectFile} onDrop={handleFileChange} onDragOver={handleDragOver} onDragLeave={handleDragLeave}>
-                <InsertPhotoOutlinedIcon/>
-        <p className={styles.txtModal}>Arrastra y suelta un archivo aquí, o haz clic para seleccionar uno.</p>
+              <InsertPhotoOutlinedIcon/>
+              <p className={styles.txtModal}>Arrastra y suelta un archivo aquí, o haz clic para seleccionar uno.</p>
             </div>
 
-            <input type="file" onChange={(e)=>handleFileChange(e, true)} ref={inputRef} onClick={(e) => e.stopPropagation()} style={{display:"none"}}/>
+          <input type="file" onChange={(e)=>handleFileChange(e, true)} ref={inputRef} onClick={(e) => e.stopPropagation()} style={{display:"none"}}/>
         </div>
     )
 }

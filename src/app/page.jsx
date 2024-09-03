@@ -5,12 +5,14 @@ import ColorThief from 'colorthief';
 import styles from "./page.module.css"
 import Header from '@/components/Header/Header';
 import ModalImg from '@/components/ModalImgUpload/ModalImg';
+import LinkModal from '@/components/LinkModal/LinkModal';
 export default function Home() {
   const [paleta, setPaleta] = useState()
   const [colors, setColors] = useState()
   const [imageSrc, setImageSrc] = useState("");
 
   const [modalImgVisible, setModalImgVisible] = useState(false)
+  const [modalLinkVisible, setModalLinkVisible] = useState(false)
 // Cuando se cambie la imagen se genera una nueva paleta
   useEffect(() => {
     if(imageSrc){
@@ -83,10 +85,11 @@ export default function Home() {
   
   return (
     <div>
-      <Header handleFileChange={handleFileChange} setImageSrc={setImageSrc} setModalImgVisible={setModalImgVisible}/>
+      <Header handleFileChange={handleFileChange} setImageSrc={setImageSrc} setModalImgVisible={setModalImgVisible} setModalLinkVisible={setModalLinkVisible}/>
       {/* <input type="file" onChange={handleFileChange}/> */}
       <ColorsContainer imgColors={colors}/>
       {modalImgVisible && <ModalImg setModalImgVisible={setModalImgVisible} handleFileChange={handleFileChange}/>}
+      {modalLinkVisible && <LinkModal setModalLinkVisible={setModalLinkVisible} setImageSrc={setImageSrc}/>}
     </div>
   );
 }

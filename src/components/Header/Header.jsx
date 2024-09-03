@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import styles from "./Header.module.css";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import ModalImg from "../ModalImgUpload/ModalImg";
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
 
-export default function Header({ handleFileChange,setImageSrc, setModalImgVisible }) {
+export default function Header({ setModalImgVisible, setModalLinkVisible }) {
   const inputRef = useRef(null);
  
   const handleClick = () => {
@@ -14,11 +14,14 @@ export default function Header({ handleFileChange,setImageSrc, setModalImgVisibl
 
   return (
     <div className={styles.header}>
-
-      <button onClick={()=>setModalImgVisible(true)} className={styles.btnCamera}><CameraAltIcon /></button>
-      
-
-
+      <div className={styles.Title}>Color Pallete Generator</div>
+      <div >
+        <p className={styles.txtHeader} >Presiona Espacio para generar una paleta</p>
+      </div>
+      <div className={styles.btnsContainer}>
+      <button onClick={()=>setModalImgVisible(true)} className={styles.btnHeader}><CameraAltIcon /></button>
+      <button onClick={()=>setModalLinkVisible(true)} className={styles.btnHeader}><InsertLinkIcon /></button>
+      </div>
 
     </div>
   );

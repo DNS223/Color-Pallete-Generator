@@ -3,15 +3,34 @@
     height: calc(100vh - 88vh);
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
-
-.btnCamera{
+.Title{
+    position: absolute;
+    top:20px;
+    padding-left: 10px;
+    font-size: 33px;
+    width: 100vw;
+    box-sizing: border-box;
+    color: #0066FF;
+    font-weight: 700;
+}
+.btnHeader{
     margin-right: 20px;
     background-color: transparent;
     border: none;
+    cursor: pointer;
     & svg{
-        font-size: 40px;
-        color: rgb(58, 58, 58);
+        font-size: 30px;
+        color: rgb(73, 73, 73);
     }
+   
+}
+.txtHeader{
+    margin-left: 10px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    color: rgba(110, 110, 110, 0.897);
 }
