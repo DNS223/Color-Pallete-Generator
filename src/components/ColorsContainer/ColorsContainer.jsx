@@ -113,7 +113,7 @@ export default function ColorsContainer({imgColors}) {
         const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
         return luminance < 0.7;
     }
-    console.log(colorNames ? colorNames[0] : "")
+
     const MostrarAlert=(valor)=>{
         setMostrarAlert(valor)
         setTimeout(() => {

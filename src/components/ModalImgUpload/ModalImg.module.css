@@ -1,0 +1,44 @@
+.modalImgContainer{
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background-color: rgba(54, 54, 54, 0.719);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ModalImg{
+    width: 470px;
+    height: 345px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    & svg{
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+}
+.ModalImgOver{
+    border: 2px solid blue;
+    width: 470px;
+    height: 345px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    & svg{
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+}
+.txtModal{
+    width: 300px;
+    text-align: center;
+}

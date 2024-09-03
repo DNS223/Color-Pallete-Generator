@@ -1,10 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styles from "./Header.module.css";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import ModalImg from "../ModalImgUpload/ModalImg";
 
-export default function Header({ handleFileChange,setImageSrc }) {
+export default function Header({ handleFileChange,setImageSrc, setModalImgVisible }) {
   const inputRef = useRef(null);
-
+ 
   const handleClick = () => {
     if (inputRef.current) {
       inputRef.current.click();
@@ -13,13 +14,12 @@ export default function Header({ handleFileChange,setImageSrc }) {
 
   return (
     <div className={styles.header}>
-      <button className={styles.btnCamera} style={{backgroundColor:"transparent", border:"none", cursor:"pointer"}} onClick={handleClick}><CameraAltIcon /></button>
-      <input
-        type="file"
-        ref={inputRef}
-        onChange={handleFileChange}
-        style={{ display: "none" }}
-      />
+
+      <button onClick={()=>setModalImgVisible(true)} className={styles.btnCamera}><CameraAltIcon /></button>
+      
+
+
+
     </div>
   );
 }

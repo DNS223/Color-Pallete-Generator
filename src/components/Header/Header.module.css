@@ -8,6 +8,8 @@
 
 .btnCamera{
     margin-right: 20px;
+    background-color: transparent;
+    border: none;
     & svg{
         font-size: 40px;
         color: rgb(58, 58, 58);

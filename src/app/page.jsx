@@ -4,11 +4,13 @@ import ColorsContainer from "@/components/ColorsContainer/ColorsContainer";
 import ColorThief from 'colorthief';
 import styles from "./page.module.css"
 import Header from '@/components/Header/Header';
+import ModalImg from '@/components/ModalImgUpload/ModalImg';
 export default function Home() {
   const [paleta, setPaleta] = useState()
   const [colors, setColors] = useState()
   const [imageSrc, setImageSrc] = useState("");
 
+  const [modalImgVisible, setModalImgVisible] = useState(false)
 // Cuando se cambie la imagen se genera una nueva paleta
   useEffect(() => {
     if(imageSrc){
@@ -39,16 +41,32 @@ export default function Home() {
   }, [imageSrc]);
 
   // Obtiene el archivo y genera una url
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e, input) => {
+    
+    let file
+    if(input){
+      file=e.target.files[0]
+    }else{
+      e.preventDefault()
+      console.log(e.dataTransfer.items)
+      const droppedFiles = e.dataTransfer.files;
+      if (droppedFiles.length) {
+        file = droppedFiles[0];
+      }
+    }
+    
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result);
       };
       reader.readAsDataURL(file);
+      
     }
+    setModalImgVisible(false)
   };
+
+  
 
   // Cuando se genere la paleta, se crea un arreglo con los colores en formato hexadecimal, este se enviará para generar las columnas de colores
   useEffect(()=>{
@@ -63,12 +81,12 @@ export default function Home() {
 
   
   
-console.log(colors)
   return (
     <div>
-      <Header handleFileChange={handleFileChange} setImageSrc={setImageSrc}/>
+      <Header handleFileChange={handleFileChange} setImageSrc={setImageSrc} setModalImgVisible={setModalImgVisible}/>
       {/* <input type="file" onChange={handleFileChange}/> */}
       <ColorsContainer imgColors={colors}/>
+      {modalImgVisible && <ModalImg setModalImgVisible={setModalImgVisible} handleFileChange={handleFileChange}/>}
     </div>
   );
 }
